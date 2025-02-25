@@ -51,7 +51,6 @@ stage('Deploy to Kubernetes') {
     }
 }
 
-        }
     }
     post {
         failure {
