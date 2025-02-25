@@ -12,9 +12,9 @@ pipeline {
             steps {
                 script {
                     if (isUnix()) {
-                        sh 'docker build -t achrafbrini007/ToDoAppProject:latest .'
+                        sh 'docker build -t achrafbrini007/todoappproject:latest .'
                     } else {
-                        bat 'docker build -t achrafbrini007/ToDoAppProject:latest .'
+                        bat 'docker build -t achrafbrini007/todoappproject:latest .'
                     }
                 }
             }
