@@ -37,22 +37,20 @@ pipeline {
                 }
             }
         }
-        stage('Deploy to Kubernetes') {
-            steps {
-                withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
-                    script {
-                        if (isUnix()) {
-                            sh '''
-                              kubectl apply -f react-dpl.yml --validate=false
-                              kubectl rollout status deployment/todoappproject-deployment
-                            '''
-                        } else {
-                            bat 'kubectl apply -f react-dpl.yml --validate=false'
-                            bat 'kubectl rollout status deployment/todoappproject-deployment'
-                        }
-                    }
-                }
+stage('Deploy to Kubernetes') {
+    steps {
+        withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
+            script {
+                sh '''
+                  export KUBECONFIG=$KUBECONFIG
+                  kubectl apply -f react-dpl.yml --validate=false
+                  kubectl rollout status deployment/todoappproject-deployment
+                '''
             }
+        }
+    }
+}
+
         }
     }
     post {
