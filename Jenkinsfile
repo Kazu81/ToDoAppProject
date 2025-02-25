@@ -36,19 +36,19 @@ pipeline {
                 }
             }
         }
-        stage("Update Kubernetes Deployment") {
-            steps {
-                echo "Updating Kubernetes Deployment..."
-                script {
-                    sh '''
-                    export KUBECONFIG=/home/azureuser/.kube/config   # Adjust the path if necessary
-                    kubectl set image deployment/todoappproject-deployment todoappproject-container=achrafbrini007/todoappproject:latest --record
-                    kubectl rollout restart deployment/todoappproject-deployment
-                    kubectl rollout status deployment/todoappproject-deployment
-                    '''
-                }
-            }
-        }
+        //stage("Update Kubernetes Deployment") {
+        //    steps {
+        //        echo "Updating Kubernetes Deployment..."
+        //        script {
+        //            sh '''
+        //           export KUBECONFIG=/home/azureuser/.kube/config   # Adjust the path if necessary
+        //            kubectl set image deployment/todoappproject-deployment todoappproject-container=achrafbrini007/todoappproject:latest --record
+        //            kubectl rollout restart deployment/todoappproject-deployment
+         //           kubectl rollout status deployment/todoappproject-deployment
+           //         '''
+           //     }
+          //  }
+       // }
     }
     post {
         failure {
