@@ -29,7 +29,6 @@ pipeline {
                               docker push achrafbrini007/todoappproject:latest
                             '''
                         } else {
-                            // On Windows, reference environment variables with %VAR%
                             bat 'docker login --username %DOCKERHUB_USR% --password %DOCKERHUB_PSW%'
                             bat 'docker push achrafbrini007/todoappproject:latest'
                         }
@@ -37,20 +36,16 @@ pipeline {
                 }
             }
         }
-        stage('Deploy to Kubernetes') {
+        stage("Update Kubernetes Deployment") {
             steps {
-                withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
-                    script {
-                        if (isUnix()) {
-                            sh '''
-                              kubectl apply -f react-dpl.yml --validate=false
-                              kubectl rollout status deployment/todoappproject-deployment
-                            '''
-                        } else {
-                            bat 'kubectl apply -f react-dpl.yml --validate=false'
-                            bat 'kubectl rollout status deployment/todoappproject-deployment'
-                        }
-                    }
+                echo "Updating Kubernetes Deployment..."
+                script {
+                    sh '''
+                    export KUBECONFIG=/home/azureuser/.kube/config   # Adjust the path if necessary
+                    kubectl set image deployment/todoappproject-deployment todoappproject-container=achrafbrini007/todoappproject:latest --record
+                    kubectl rollout restart deployment/todoappproject-deployment
+                    kubectl rollout status deployment/todoappproject-deployment
+                    '''
                 }
             }
         }
