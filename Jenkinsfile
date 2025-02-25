@@ -5,16 +5,16 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Check out the 'main' branch from your GitHub repository
-                git branch: 'main', url: 'https://github.com/Saisamarth21/Jenkins-Kubernetes-Docker-React.git'
+                git branch: 'main', url: 'https://github.com/Kazu81/ToDoAppProject.git'
             }
         }
         stage('Build Docker Image') {
             steps {
                 script {
                     if (isUnix()) {
-                        sh 'docker build -t saisamarth21/jenkins-kubernetes-docker-react:latest .'
+                        sh 'docker build -t achrafbrini007/ToDoAppProject:latest .'
                     } else {
-                        bat 'docker build -t saisamarth21/jenkins-kubernetes-docker-react:latest .'
+                        bat 'docker build -t achrafbrini007/ToDoAppProject:latest .'
                     }
                 }
             }
@@ -26,12 +26,12 @@ pipeline {
                         if (isUnix()) {
                             sh '''
                               echo "$DOCKERHUB_PSW" | docker login --username "$DOCKERHUB_USR" --password-stdin
-                              docker push saisamarth21/jenkins-kubernetes-docker-react:latest
+                              docker push achrafbrini007/ToDoAppProject:latest
                             '''
                         } else {
                             // On Windows, reference environment variables with %VAR%
                             bat 'docker login --username %DOCKERHUB_USR% --password %DOCKERHUB_PSW%'
-                            bat 'docker push saisamarth21/jenkins-kubernetes-docker-react:latest'
+                            bat 'docker push achrafbrini007/ToDoAppProject:latest'
                         }
                     }
                 }
@@ -44,11 +44,11 @@ pipeline {
                         if (isUnix()) {
                             sh '''
                               kubectl apply -f react-dpl.yml --validate=false
-                              kubectl rollout status deployment/jenkins-kubernetes-docker-react-deployment
+                              kubectl rollout status deployment/ToDoAppProject-deployment
                             '''
                         } else {
                             bat 'kubectl apply -f react-dpl.yml --validate=false'
-                            bat 'kubectl rollout status deployment/jenkins-kubernetes-docker-react-deployment'
+                            bat 'kubectl rollout status deployment/ToDoAppProject-deployment'
                         }
                     }
                 }
