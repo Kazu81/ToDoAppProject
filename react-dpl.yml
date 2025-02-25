@@ -1,33 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: jenkins-kubernetes-docker-react-deployment
+  name: todoappproject-deployment
   labels:
-    app: jenkins-kubernetes-docker-react
+    app: todoappproject
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: jenkins-kubernetes-docker-react
+      app: todoappproject
   template:
     metadata:
       labels:
-        app: jenkins-kubernetes-docker-react
+        app: todoappproject
     spec:
       containers:
-      - name: jenkins-kubernetes-docker-react
-        image: saisamarth21/jenkins-kubernetes-docker-react:latest   
+      - name: todoappproject-container
+        image: achrafbrini007/todoappproject:latest  # Matches Jenkins pipeline
         ports:
         - containerPort: 4173
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: jenkins-kubernetes-docker-react-service
+  name: todoappproject-service
 spec:
   type: NodePort
   selector:
-    app: jenkins-kubernetes-docker-react
+    app: todoappproject
   ports:
   - protocol: TCP
     port: 80
