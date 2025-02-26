@@ -122,7 +122,7 @@ const App = () => {
 
   return (
     <div style={styles.container}>
-      <h1>TODOO_APPv1</h1>
+      <h1>Todo_App</h1>
       <div>
         <input
           type="text"
@@ -132,7 +132,7 @@ const App = () => {
           onKeyDown={handleKeyDown}
           style={styles.input}
         />
-        <button onClick={addTodo} style={styles.button}>add2</button>
+        <button onClick={addTodo} style={styles.button}>Add</button>
       </div>
       <p>Total Todos: {todos.length}</p>
       <ul style={{ listStyle: "none", padding: 0 }}>
