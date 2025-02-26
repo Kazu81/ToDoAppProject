@@ -132,7 +132,7 @@ const App = () => {
           onKeyDown={handleKeyDown}
           style={styles.input}
         />
-        <button onClick={addTodo} style={styles.button}>Add</button>
+        <button onClick={addTodo} style={styles.button}>add2</button>
       </div>
       <p>Total Todos: {todos.length}</p>
       <ul style={{ listStyle: "none", padding: 0 }}>
